@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+  bantads-auth:
+    image: bantads-auth:0.0.1-SNAPSHOT
+    ports:
+      - 5000:5000
+
+  bantads-cliente:
+    image: bantads-cliente:0.0.1-SNAPSHOT
+    ports:
+      - 5001:5001
+
+  bantads-conta:
+    image: bantads-conta:0.0.1-SNAPSHOT
+    ports:
+      - 5002:5002
+
+  bantads-gerente:
+    image: bantads-gerente:0.0.1-SNAPSHOT
+    ports:
+      - 5003:5003
+
+  bantads-front:
+    image: bantads-front
+    build: .
+    ports:
+      - 4200:80
+
+  bantads-gateway:
+    image: bantads-gateway
+    build: .
+    ports:
+      - 3000:3000

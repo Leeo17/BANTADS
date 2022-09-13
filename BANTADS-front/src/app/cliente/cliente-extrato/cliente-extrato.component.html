@@ -1,0 +1,63 @@
+<div class="well container col-6" *ngIf="!isLoading">
+  <form #formExtrato="ngForm">
+    <div class="form-group">
+      <label for="dataInicio">Data Inicial</label>
+      <input type="date" class="form-control" id="dataInicio" name="dataInicio" [(ngModel)]="dataInicioExtrato"
+        #dataInicio="ngModel" required>
+      <div *ngIf="dataInicio.errors && (dataInicio.dirty || dataInicio.touched)" class="alert alert-danger">
+        <div [hidden]="!dataInicio.errors['required']">
+          Informe a data de ínicio para consultar seu extrato.
+        </div>
+      </div>
+      <div *ngIf="dataInvalida" class="alert alert-danger">
+        A data inicial não pode ser maior que a data final.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dataFim">Data Final</label>
+      <input type="date" class="form-control" id="dataFim" name="dataFim" [(ngModel)]="dataFimExtrato"
+        #dataFim="ngModel" required>
+      <div *ngIf="dataFim.errors && (dataFim.dirty || dataFim.touched)" class="alert alert-danger">
+        <div [hidden]="!dataFim.errors['required']">
+          Informe a data de ínicio para consultar seu extrato.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="consultarExtrato()"
+      [disabled]="!formExtrato.form.valid || dataInvalida">
+      <i class="fa fa-file-invoice-dollar" aria-hidden="true"></i> Consultar Extrato
+    </button>
+  </form>
+
+  <div *ngIf="mostrarExtrato">
+    <div *ngFor="let extratosDia of todosExtratosPorDia">
+      <strong>{{extratosDia.dia | date: 'dd/MM/yyyy'}}</strong>
+      <table *ngIf="extratosDia.movimentacoes?.length != 0" class="table table-striped table-bordered table-hover">
+        <tbody>
+          <tr>
+            <th>Data/Hora da Transação</th>
+            <th>Operação</th>
+            <th>Valor</th>
+            <th>Cliente de Origem</th>
+            <th>Cliente de Destino</th>
+          </tr>
+          <tr *ngFor="let movimentacao of extratosDia.movimentacoes">
+            <td [style]="getRowBackgroundColor(movimentacao.tipo)"> {{ movimentacao.dataHora | date: 'dd/MM/yyyy H:mm'
+              }}
+            </td>
+            <td [style]="getRowBackgroundColor(movimentacao.tipo)"> {{ movimentacao.tipo }} </td>
+            <td [style]="getRowBackgroundColor(movimentacao.tipo)"> {{ movimentacao.valorMovimentacao! | currency: 'BRL'
+              }} </td>
+            <td [style]="getRowBackgroundColor(movimentacao.tipo)">
+              {{ movimentacao.tipo === "TRANSFERENCIA" ? movimentacao.nomeClienteOrigem : "" }} </td>
+            <td [style]="getRowBackgroundColor(movimentacao.tipo)">
+              {{ movimentacao.tipo === "TRANSFERENCIA" ? movimentacao.nomeClienteDestino : "" }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="extratosDia.movimentacoes?.length == 0">Nenhuma movimentação realizada nesse dia.</p>
+      <p>Saldo consolidado no dia: {{ extratosDia.saldo! | currency: 'BRL' }}.</p>
+      <br>
+    </div>
+  </div>
+</div>

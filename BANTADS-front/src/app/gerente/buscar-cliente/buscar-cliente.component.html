@@ -1,0 +1,23 @@
+<div class="well container col-6" *ngIf="!isLoading">
+  <div>
+    <h3>Buscar Cliente</h3>
+  </div>
+  <form #formCliente="ngForm">
+    <div class="form-group">
+      <label for="cpf">CPF:</label>
+      <input type="text" class="form-control" id="cpf" name="cpf" [(ngModel)]="cpfCliente" #cpf="ngModel" required
+        mask="000.000.000-00" cpfValidator>
+      <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+        <div [hidden]="!cpf.errors['required']">
+          Digite o CPF do cliente.
+        </div>
+        <div [hidden]="!cpf.errors['mask'] && !cpf.errors['cpfNotValid']">
+          CPF inválido.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="buscarPorCPF()" [disabled]="!formCliente.form.valid">
+      <i class="fa fa-magnifying-glass" aria-hidden="true"></i> Buscar
+    </button>
+  </form>
+</div>

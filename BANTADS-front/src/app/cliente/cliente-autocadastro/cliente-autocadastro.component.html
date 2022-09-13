@@ -1,0 +1,143 @@
+<div *ngIf="message" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{message}}
+  <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="$event.preventDefault()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="well container col-6 justify-content-center box_cli">
+  <h3>Cadastrar novo cliente</h3>
+  <form #formCliente="ngForm">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel"
+        minlength="2" required>
+      <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+        <div [hidden]="!nome.errors['required']">
+          Digite o nome do cliente.
+        </div>
+        <div [hidden]="!nome.errors['minlength']"> O nome deve conter ao menos 2 caracteres. </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="text" class="form-control" id="email" name="email" [(ngModel)]="cliente.email" #email="ngModel"
+        required email>
+      <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+        <div [hidden]="!email.errors['required']">
+          Digite o email do cliente.
+        </div>
+        <div [hidden]="!email.errors['email']">
+          Email inválido.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cpf">CPF:</label>
+      <input type="text" class="form-control" id="cpf" name="cpf" [(ngModel)]="cliente.cpf" #cpf="ngModel" required
+        mask="000.000.000-00" cpfValidator>
+      <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert alert-danger">
+        <div [hidden]="!cpf.errors['required']">
+          Digite o CPF do cliente.
+        </div>
+        <div [hidden]="!cpf.errors['mask'] && !cpf.errors['cpfNotValid']">
+          CPF inválido.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="tipoEndereco">Tipo de Endereço:</label>
+      <select class="form-select" name="tipoEndereco" id="tipoEndereco" [(ngModel)]="enderecoCliente.tipo"
+        #tipoEndereco="ngModel">
+        <option value="Rua">Rua</option>
+        <option value="Avenida">Avenida</option>
+      </select>
+      <div *ngIf="tipoEndereco.errors && (tipoEndereco.dirty || tipoEndereco.touched)" class="alert alert-danger">
+        <div [hidden]="!tipoEndereco.errors['required']">
+          Selecione o tipo de endereço do cliente.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" class="form-control" id="logradouro" name="logradouro" [(ngModel)]="enderecoCliente.logradouro"
+        #logradouro="ngModel" required>
+      <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert alert-danger">
+        <div [hidden]="!logradouro.errors['required']">
+          Digite o logradouro do endereço do cliente.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="numero">Número:</label>
+      <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="enderecoCliente.numero"
+        #numero="ngModel" required>
+      <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert alert-danger">
+        <div [hidden]="!numero.errors['required']">
+          Digite o número do endereço do cliente.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="complemento">Complemento:</label>
+      <input type="text" class="form-control" id="complemento" name="complemento"
+        [(ngModel)]="enderecoCliente.complemento" #complemento="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="cep">CEP:</label>
+      <input type="text" class="form-control" id="cep" name="cep" [(ngModel)]="enderecoCliente.cep" #cep="ngModel"
+        mask="00000-000" required>
+      <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert alert-danger">
+        <div [hidden]="!cep.errors['required']">
+          Digite o CEP do endereço do cliente.
+        </div>
+        <div [hidden]="!cep.errors['mask']">
+          CEP inválido.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cidade">Cidade:</label>
+      <input type="text" class="form-control" id="cidade" name="cidade" [(ngModel)]="enderecoCliente.cidade"
+        #cidade="ngModel" required>
+      <div *ngIf="cidade.errors && (cidade.dirty || cidade.touched)" class="alert alert-danger">
+        <div [hidden]="!cidade.errors['required']">
+          Digite a cidade do endereço do cliente.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="estado">Estado:</label>
+      <select class="form-select" name="estado" id="estado" [(ngModel)]="enderecoCliente.estado" #estado="ngModel"
+        required>
+        <option *ngFor="let estado of estados" [value]=estado>{{estado}}</option>
+      </select>
+      <div *ngIf="estado.errors && (estado.dirty || estado.touched)" class="alert alert-danger">
+        <div [hidden]="!estado.errors['required']">
+          Selecione o estado do cliente.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="salario">Salário:</label>
+      <input type="text" class="form-control" id="salario" name="salario" [(ngModel)]="cliente.salario"
+        #salario="ngModel" currencyMask [min]="100" required>
+      <div *ngIf="salario.errors && (salario.dirty || salario.touched)" class="alert alert-danger">
+        <div [hidden]="!salario.errors['required']">
+          Digite o salário do cliente.
+        </div>
+        <div [hidden]="!salario.errors['min']">
+          Valor mínimo de R$ 100,00.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-success form-control" (click)="registrarCliente()"
+      [disabled]="!formCliente.form.valid">
+      <i class="fa fa-save" aria-hidden="true"></i> Cadastrar
+    </button>
+    <button class="form-control btn btn-secondary" [routerLink]="['/login']">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+    </button>
+  </form>
+</div>

@@ -1,0 +1,7 @@
+version: '3.5'
+
+services:
+  bantads-orchestrator:
+    image: bantads-orchestrator:0.0.1-SNAPSHOT
+    ports:
+      - 5004:5004

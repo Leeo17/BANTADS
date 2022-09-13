@@ -1,0 +1,22 @@
+input {
+  margin-bottom: 15px;
+}
+
+select {
+  margin-bottom: 15px;
+}
+
+button {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.box_cli {
+  float: right;
+  color: white;
+  background: rgb(22, 20, 27);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 0 0 rgb(55, 50, 71);
+
+}

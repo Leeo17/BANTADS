@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modalLabel"> Saldo e limite </h4>
+</div>
+<div class="modal-body text-center">
+  <div>
+    <p class="text-danger" *ngIf="conta.saldo! < 0">Saldo: {{ conta.saldo! | currency: 'BRL' }} </p>
+    <p class="text-success" *ngIf="conta.saldo! >= 0">Saldo: {{ conta.saldo! | currency: 'BRL' }}
+    </p>
+    <p>Limite: R$ {{ conta.limite! | currency: 'BRL' }}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Fechar</button>
+</div>

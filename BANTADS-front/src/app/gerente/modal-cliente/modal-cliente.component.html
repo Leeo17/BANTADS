@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4 class="modal-title text-center" id="modalLabel"> Cliente </h4>
+</div>
+<div class="modal-body text-center">
+  <div>
+    <p>Nome: {{ contaCliente.nomeCliente }}</p>
+    <p>Email: {{ contaCliente.emailCliente }}</p>
+    <p>CPF: {{ contaCliente.cpfCliente! | mask: '000.000.000-00' }}</p>
+    <p>Tipo de Endereço: {{ contaCliente.tipoEnderecoCliente }}</p>
+    <p>Logadouro: {{ contaCliente.logradouroCliente }}</p>
+    <p>Complemento: {{ contaCliente.complementoEnderecoCliente }}</p>
+    <p>CEP: {{ contaCliente.cepCliente }}</p>
+    <p>Cidade: {{ contaCliente.cidadeCliente }}</p>
+    <p>Estado: {{ contaCliente.estadoCliente }}</p>
+    <p>Salário: {{ contaCliente.salarioCliente | currency: 'BRL' }}</p>
+    <p>Saldo: {{ contaCliente.saldo | currency: 'BRL' }}</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Fechar</button>
+</div>

@@ -1,0 +1,9 @@
+br\ufpr\dac\bantads\common\dto\ClienteDTO.class
+br\ufpr\dac\bantads\common\dto\AtualizarSaldoGerenteContaDTO.class
+br\ufpr\dac\bantads\common\dto\ContaDTO.class
+br\ufpr\dac\bantads\common\constants\RabbitMQConstants.class
+br\ufpr\dac\bantads\common\dto\AlterarUsuarioGerenteDTO.class
+br\ufpr\dac\bantads\common\dto\GerenteDTO.class
+br\ufpr\dac\bantads\common\dto\GerenteContaDTO.class
+br\ufpr\dac\bantads\common\dto\EnderecoClienteDTO.class
+br\ufpr\dac\bantads\common\dto\ContaReadDTO.class

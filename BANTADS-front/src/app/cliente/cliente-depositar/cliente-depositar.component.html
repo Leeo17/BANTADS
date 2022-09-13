@@ -1,0 +1,22 @@
+<div class="well container col-6" *ngIf="!isLoading">
+  <div>
+    <h3 *ngIf="conta && conta.saldo! >= 0">Saldo: {{ conta.saldo | currency: 'BRL' }}</h3>
+    <h3 class="text-danger" *ngIf="conta && conta.saldo! < 0">Saldo: {{ conta.saldo | currency: 'BRL' }}</h3>
+    <h3 *ngIf="conta">Limite: {{ conta.limite | currency: 'BRL' }}</h3>
+  </div>
+  <form #formDeposito="ngForm">
+    <div class="form-group">
+      <label for="valor">Valor do depósito:</label>
+      <input type="text" class="form-control" id="valor" name="valor" [(ngModel)]="valorDeposito" #valor="ngModel"
+        currencyMask [min]="0.01" required>
+      <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
+        <div [hidden]="!valor.errors['min']">
+          Valor inválido.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="depositar()" [disabled]="!formDeposito.form.valid">
+      <i class="fa fa-plus" aria-hidden="true"></i> Depositar
+    </button>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<table *ngIf="contas.length!=0" class="table table-striped table-bordered table-hover container col-7 container">
+  <thead>
+    <h3>Autocadastros de Clientes</h3>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nome</th>
+      <th>CPF</th>
+      <th>Salário</th>
+      <th>Ações</th>
+    </tr>
+    <tr *ngFor="let conta of contas">
+      <td> {{ conta.nomeCliente }} </td>
+      <td> {{ conta.cpfCliente! | mask: '000.000.000-00' }} </td>
+      <td> {{ conta.salarioCliente | currency: 'BRL' }} </td>
+      <td class="text-center" style="width: 300px">
+        <a href="#" title="Aprovar" alt="Aprovar" class="btn btn-xs btn-success"
+          (click)="aprovar($event, conta)">Aprovar</a>&nbsp;
+        <a href="#" title="Reprovar" alt="Reprovar" class="btn btn-xs btn-danger"
+          (click)="recusar($event, conta)">Recusar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 class="container text-danger" *ngIf="contas.length==0">Nenhum autocadastro pendente de aprovação.</h3>

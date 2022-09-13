@@ -1,0 +1,33 @@
+<div class="well container col-6">
+  <form #formTransferencia="ngForm">
+    <div class="form-group">
+      <label for="numeroConta">Número da conta de destino:</label>
+      <input type="number" class="form-control" id="numeroConta" name="numeroConta" [(ngModel)]="numeroContaDestino"
+        #numeroConta="ngModel" [min]="1" required>
+      <div *ngIf="numeroConta.errors && (numeroConta.dirty || numeroConta.touched)" class="alert alert-danger">
+        <div [hidden]="!numeroConta.errors">
+          Número da conta inválido.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="valor">Valor da transferência
+        <i>(Saldo com limite: {{conta.saldo! + conta.limite! | currency: 'BRL'}}): </i>
+      </label>
+      <input type="text" class="form-control" id="valor" name="valor" [(ngModel)]="valorTransferencia" #valor="ngModel"
+        currencyMask [min]="0.01" [max]="conta.saldo! + conta.limite!" required>
+      <div *ngIf="valor.errors && (valor.dirty || valor.touched)" class="alert alert-danger">
+        <div [hidden]="!valor.errors['min']">
+          Valor inválido.
+        </div>
+        <div [hidden]="!valor.errors['max']">
+          Valor acima do saldo com limite.
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="transferir()" [disabled]="!formTransferencia.form.valid">
+      <i class="fa fa-money-bill-transfer" aria-hidden="true"></i> Transferir
+    </button>
+  </form>
+
+</div>

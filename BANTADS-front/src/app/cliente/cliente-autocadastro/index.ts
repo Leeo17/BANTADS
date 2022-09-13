@@ -1,0 +1,1 @@
+export * from './cliente-autocadastro.component';

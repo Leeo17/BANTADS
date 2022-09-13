@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <div class="navbar-div">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a *ngIf="!isUsuarioLogado" class="navbar-brand nav-link" href="#" routerLink="/login">
+        <i class="fa fa-building-columns"></i> {{ title }}
+      </a>
+      <a *ngIf="isUsuarioLogado && usuarioCliente" class="navbar-brand nav-link" href="#" routerLink="/cliente">
+        <i class="fa fa-building-columns"></i> {{ title }}
+      </a>
+      <a *ngIf="isUsuarioLogado && usuarioGerente" class="navbar-brand nav-link" href="#" routerLink="/gerente">
+        <i class="fa fa-building-columns"></i> {{ title }}
+      </a>
+      <a *ngIf="isUsuarioLogado && usuarioAdmin" class="navbar-brand nav-link" href="#" routerLink="/admin">
+        <i class="fa fa-building-columns"></i> {{ title }}
+      </a>
+      <!-- Menu clientes -->
+      <div *ngIf="isUsuarioLogado" class="navbar-collapse collapsed justify-content-between" id="navbarContent">
+        <ul *ngIf="usuarioCliente" class="nav nav-pills ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/cliente/depositar">Depositar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/cliente/saque">Saque</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/cliente/transferencia">Transferência</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/cliente/extrato">Extrato</a>
+          </li>
+        </ul>
+        <!-- Menu Gerentes -->
+        <ul *ngIf="usuarioGerente" class="nav nav-pills ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/gerente/autocadastros">Autocadastros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/gerente/clientes">Clientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/gerente/busca-cpf">Buscar Cliente</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/gerente/top-clientes">Top 5</a>
+          </li>
+        </ul>
+        <!-- Menu Administradores -->
+        <ul *ngIf="usuarioAdmin" class="nav nav-pills ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/admin/inicial/"
+              [routerLinkActiveOptions]="{ exact: true }">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/admin/gerentes/"
+              [routerLinkActiveOptions]="{ exact: true }">Listar Gerentes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/admin/gerentes/novo"
+              [routerLinkActiveOptions]="{ exact: true }">Novo Gerente</a>
+          </li>
+        </ul>
+        <ul *ngIf="isUsuarioLogado" class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <p class="navbar-text mb-0 text-white">
+              <i class="fa fa-user"></i> {{ usuarioLogado.nome }}
+            </p>
+          </li>
+          <li *ngIf="usuarioCliente" class="nav-item">
+            <a class="nav-link" href="#" (click)="abrirModalSaldo($event)">Verificar Saldo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" (click)="logout($event)">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</div>
