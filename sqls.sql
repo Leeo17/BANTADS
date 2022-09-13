@@ -41,7 +41,7 @@ create table tb_clientes(
 create database bantads-conta;
 
 create table tb_contas(
-	numero_conta bigint primary key,
+	numero_conta serial primary key,
 	aprovada_conta boolean,
 	data_criacao_conta timestamp without time zone,
 	data_hora_aprovacao_reprovacao_conta timestamp without time zone,
@@ -58,8 +58,8 @@ create table tb_historico_movimentacoes(
 	data_hora_his timestamp without time zone,
 	nome_cliente_destino_his character varying(100),
 	nome_cliente_origem_his character varying(100),
-	numero_conta_destino_his bigint,
-	numero_conta_origem_his bigint,
+	numero_conta_destino_his serial,
+	numero_conta_origem_his serial,
 	saldo_apos_movimentacao_his numeric(19,2),
 	tipo_his character varying(15),
 	valor_movimentacao_his numeric(19,2),
@@ -71,7 +71,7 @@ create table tb_historico_movimentacoes(
 create database bantads-conta-read;
 
 create table tb_contas_read(
-	numero_conta bigint primary key,
+	numero_conta serial primary key,
 	aprovada_conta boolean,
 	cep_cliente_conta character varying(10),
 	cidade_cliente_conta character varying(50),
@@ -106,7 +106,7 @@ create table tb_gerentes(
 create table tb_gerentes_contas(
 	id_gerente_conta uuid primary key,
 	id_gerente uuid,
-	numero_conta bigint,
+	numero_conta serial,
 	saldo_conta numeric(19,2),
 	constraint fk_id_gerente
 		foreign key(id_gerente)
