@@ -9,3 +9,4 @@ RUN npm run build
 FROM nginx:latest
 
 COPY --from=build /usr/local/app/dist/bantads-front /usr/share/nginx/html
+COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
